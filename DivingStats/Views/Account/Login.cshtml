@@ -1,0 +1,43 @@
+﻿@model LogOnModel
+
+@{
+    ViewBag.Title = "Log On";
+}
+
+<h2>Log On</h2>
+
+<p>Please enter your username and password.</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Account Information</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Username)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Username)
+            @Html.ValidationMessageFor(m => m.Username)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Password)
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+
+        <p>
+            <input type="submit" value="Log On" />
+        </p>
+    </fieldset>
+}
+
+@if ((bool)ViewData["LastLoginFailed"])
+{
+    <p>Invalid username or password.</p>
+}
