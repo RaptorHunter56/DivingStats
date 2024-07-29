@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DivingStats.Models.Competition>
+
+@{
+    ViewData["Title"] = "Results";
+}
+
+<div class="athlete-profile-card competition-results-card card">
+    <h3 class="mt-4" style="display:inline;">Competition Results</h3>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>Place</th>
+                <th>Score</th>
+                <th>Dive1</th>
+                <th>Dive2</th>
+                <th>Dive3</th>
+                <th>Dive4</th>
+                <th>Dive5</th>
+                <th>Dive6</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var competition in Model)
+            {
+                <tr class="bg-light">
+                    <th colspan="9" class="text-left font-weight-bold">@Html.DisplayFor(modelItem => competition.Name)</th>
+                </tr>
+                @foreach (var round in competition.Rounds)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => round.Type)</td>
+                        <td>@round.Placements.Where(x => x.Value == 1).Select(x => x.Key).FirstOrDefault() / @round.Placements.Count()</td>
+                        <td>@round.IndividualDives.Where(x => x.DiverID == 1).Select(x => x.Score).Sum()</td>
+
+                        @foreach (var individualDive in round.IndividualDives.Where(x => x.DiverID == 1))
+                        {
+                            <td style="text-align:center;">@individualDive.DiveID  |  @individualDive.Score</td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>

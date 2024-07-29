@@ -25,6 +25,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-secondary" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary" asp-area="" asp-controller="Overview" asp-action="Results">Results</a>
+                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -52,9 +55,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - DivingStats
+    <footer class="border-top footer text-muted footer-fixed footer" style="background-color: rgba(255,255,255,.5);">
+        <div class="container" style="text-align: center;">
+            &copy; 2024 - DivingStats   
+            <a href="https://www.worldaquatics.com/athletes/1062052/nathan-brown">World Aquatics</a>    
+            <a href="https://www.diverecorder.co.uk/meetexplorer/diverevents.php?dref=3047">Dive Recorder</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

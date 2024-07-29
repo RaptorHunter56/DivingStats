@@ -52,13 +52,20 @@ namespace DivingStats.Models
         public Dictionary<int?, decimal?> GetJudgeValues()
         {
             Dictionary<int?, decimal?> keys = new Dictionary<int?, decimal?>();
-            keys.Add(Judge1ID, Value1);
-            keys.Add(Judge2ID, Value2);
-            keys.Add(Judge3ID, Value3);
-            keys.Add(Judge4ID, Value4);
-            keys.Add(Judge5ID, Value5);
-            keys.Add(Judge6ID, Value6);
-            keys.Add(Judge7ID, Value7);
+            if (Judge1ID.HasValue)
+                keys.Add(Judge1ID, Value1);
+            if (Judge2ID.HasValue)
+                keys.Add(Judge2ID, Value2);
+            if (Judge3ID.HasValue)
+                keys.Add(Judge3ID, Value3);
+            if (Judge4ID.HasValue)
+                keys.Add(Judge4ID, Value4);
+            if (Judge5ID.HasValue)
+                keys.Add(Judge5ID, Value5);
+            if (Judge6ID.HasValue)
+                keys.Add(Judge6ID, Value6);
+            if (Judge7ID.HasValue)
+                keys.Add(Judge7ID, Value7);
             return keys;
         }
         public void SetJudgeValues(Dictionary<int?, decimal?> keys)
@@ -104,8 +111,13 @@ namespace DivingStats.Models
 
         [NotMapped]
         public decimal? Score
-        { 
-            get { return JudgeValues.Values.Count() >= 3 ? JudgeValues.Values.OrderBy(v => v).Skip((JudgeValues.Count - 3) / 2).Take(3).Sum(v => v.GetValueOrDefault(0)) * Dive.DD : (decimal?)null; }
+        {
+            get
+            {
+                if (JudgeValues == null || Dive == null) return null;
+                if (JudgeValues.Values.Count() >= 3) return JudgeValues.Values.OrderBy(v => v).Skip((JudgeValues.Count - 3) / 2).Take(3).Sum(v => v.GetValueOrDefault(0)) * Dive.DD;
+                else return null;
+            }
         }
     }
 }
